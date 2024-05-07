@@ -12,7 +12,10 @@ import Combine
 enum NetworkType {
     
     case wifi
-    case wwan
+    case cellular
+    case wiredEthernet
+    case loopback
+    case other
     
 }
 
@@ -35,10 +38,9 @@ protocol NetworkManagerProtocol {
 final class NetworkManager {
     
     static let shared: NetworkManager = NetworkManager()
-
     var networkStatusPublisher: PassthroughSubject<NetworkStatus, Never> = .init()
     private let nwPathMonitor = NWPathMonitor()
-    private let queue = DispatchQueue.global()
+    private let queue = DispatchQueue.global() // 이벤트를 백그라운드에서 처리하기 위해 global queue로 선언
     
     private init() {
         self.startMonitor()
@@ -54,8 +56,14 @@ extension NetworkManager: NetworkManagerProtocol {
             case .satisfied:
                 if path.usesInterfaceType(.wifi) {
                     self?.networkStatusPublisher.send(.satisfied(.wifi))
+                } else if path.usesInterfaceType(.cellular) {
+                    self?.networkStatusPublisher.send(.satisfied(.cellular))
+                } else if path.usesInterfaceType(.wiredEthernet) {
+                    self?.networkStatusPublisher.send(.satisfied(.wiredEthernet))
+                } else if path.usesInterfaceType(.loopback) {
+                    self?.networkStatusPublisher.send(.satisfied(.loopback))
                 } else {
-                    self?.networkStatusPublisher.send(.satisfied(.wwan))
+                    self?.networkStatusPublisher.send(.satisfied(.other))
                 }
             case .unsatisfied:
                 self?.networkStatusPublisher.send(.unsatisfied)
