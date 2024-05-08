@@ -70,7 +70,17 @@ private extension MainViewController {
         ))
         
         [outputs.events
-            .sink(receiveValue: { _ in })
+            .sink(receiveValue: { _ in }),
+         outputs.toast.sink(receiveValue: { [weak self] status in
+            switch status {
+            case .satisfied(let networkType):
+                self?.closeToast()
+            case .unsatisfied:
+                self?.openToast()
+            case .requiresConnection:
+                self?.openToast()
+            }
+        })
         ].forEach { self.cancellables.insert($0) }
         
     }

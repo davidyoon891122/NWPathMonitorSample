@@ -23,6 +23,9 @@
 		ADE33E432BEAF39B008CC91F /* NetworkErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE33E422BEAF39B008CC91F /* NetworkErrorViewController.swift */; };
 		ADE33E462BEAF3EF008CC91F /* NetworkErrorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE33E452BEAF3EF008CC91F /* NetworkErrorViewModel.swift */; };
 		ADE33E482BEAF3FA008CC91F /* NetworkErrorNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE33E472BEAF3FA008CC91F /* NetworkErrorNavigator.swift */; };
+		ADE33E4A2BEB3572008CC91F /* Extension+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE33E492BEB3571008CC91F /* Extension+UIViewController.swift */; };
+		ADE33E4C2BEB362C008CC91F /* Extension+SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE33E4B2BEB362C008CC91F /* Extension+SceneDelegate.swift */; };
+		ADE33E4E2BEB3809008CC91F /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE33E4D2BEB3809008CC91F /* ToastView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +45,9 @@
 		ADE33E422BEAF39B008CC91F /* NetworkErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorViewController.swift; sourceTree = "<group>"; };
 		ADE33E452BEAF3EF008CC91F /* NetworkErrorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorViewModel.swift; sourceTree = "<group>"; };
 		ADE33E472BEAF3FA008CC91F /* NetworkErrorNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrorNavigator.swift; sourceTree = "<group>"; };
+		ADE33E492BEB3571008CC91F /* Extension+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIViewController.swift"; sourceTree = "<group>"; };
+		ADE33E4B2BEB362C008CC91F /* Extension+SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+SceneDelegate.swift"; sourceTree = "<group>"; };
+		ADE33E4D2BEB3809008CC91F /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +118,9 @@
 				ADE33E322BE9C1F9008CC91F /* Main */,
 				ADE33E382BE9C68E008CC91F /* Present */,
 				ADE33E442BEAF3A2008CC91F /* NetworkError */,
+				ADE33E492BEB3571008CC91F /* Extension+UIViewController.swift */,
+				ADE33E4B2BEB362C008CC91F /* Extension+SceneDelegate.swift */,
+				ADE33E4D2BEB3809008CC91F /* ToastView.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -225,14 +234,17 @@
 				ADE33E3F2BE9C811008CC91F /* PresentNavigator.swift in Sources */,
 				ADE33E372BE9C689008CC91F /* PresentViewController.swift in Sources */,
 				ADE33E2D2BE9B16F008CC91F /* NetworkManager.swift in Sources */,
+				ADE33E4E2BEB3809008CC91F /* ToastView.swift in Sources */,
 				ADE33E1A2BE9B0C7008CC91F /* MainViewController.swift in Sources */,
 				ADE33E482BEAF3FA008CC91F /* NetworkErrorNavigator.swift in Sources */,
 				ADE33E162BE9B0C7008CC91F /* AppDelegate.swift in Sources */,
 				ADE33E432BEAF39B008CC91F /* NetworkErrorViewController.swift in Sources */,
+				ADE33E4A2BEB3572008CC91F /* Extension+UIViewController.swift in Sources */,
 				ADE33E182BE9B0C7008CC91F /* SceneDelegate.swift in Sources */,
 				ADE33E462BEAF3EF008CC91F /* NetworkErrorViewModel.swift in Sources */,
 				ADE33E3D2BE9C6DF008CC91F /* PresentViewModel.swift in Sources */,
 				ADE33E312BE9C144008CC91F /* MainNavigator.swift in Sources */,
+				ADE33E4C2BEB362C008CC91F /* Extension+SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

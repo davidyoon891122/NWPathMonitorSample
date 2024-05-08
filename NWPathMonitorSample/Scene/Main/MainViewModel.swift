@@ -17,6 +17,7 @@ struct MainViewModel {
     
     struct Outputs {
         let events: AnyPublisher<Void, Never>
+        let toast: AnyPublisher<NetworkStatus, Never>
     }
     
     private let navigator: MainNavigatorProtocol
@@ -37,19 +38,14 @@ extension MainViewModel {
     func bind(_ inputs: Inputs) -> Outputs {
         let navigator = navigator
         
+        let toastPublisher = PassthroughSubject<NetworkStatus, Never>()
+        
         let events = Publishers.MergeMany(
             inputs.viewDidLoad.flatMap { _ -> AnyPublisher<Void, Never> in
                 self.networkManager.networkStatusPublisher
                     .receive(on: DispatchQueue.main)
                     .handleEvents(receiveOutput: { status in
-                        switch status {
-                        case .satisfied(let type):
-                            print("satisfied type: \(type)")
-                        case .unsatisfied:
-                            navigator.toErrorView()
-                        case .requiresConnection:
-                            navigator.toErrorView()
-                        }
+                        toastPublisher.send(status)
                     })
                     .map { _ in }
                     .eraseToAnyPublisher()
@@ -68,7 +64,7 @@ extension MainViewModel {
             
         
         
-        return .init(events: events)
+        return .init(events: events, toast: toastPublisher.eraseToAnyPublisher())
     }
     
 }
