@@ -35,12 +35,21 @@ struct MainViewModel {
 extension MainViewModel {
     
     func bind(_ inputs: Inputs) -> Outputs {
+        let navigator = navigator
         
         let events = Publishers.MergeMany(
             inputs.viewDidLoad.flatMap { _ -> AnyPublisher<Void, Never> in
                 self.networkManager.networkStatusPublisher
+                    .receive(on: DispatchQueue.main)
                     .handleEvents(receiveOutput: { status in
-                        print("status on ViewModel \(status)")
+                        switch status {
+                        case .satisfied(let type):
+                            print("satisfied type: \(type)")
+                        case .unsatisfied:
+                            navigator.toErrorView()
+                        case .requiresConnection:
+                            navigator.toErrorView()
+                        }
                     })
                     .map { _ in }
                     .eraseToAnyPublisher()

@@ -11,6 +11,7 @@ protocol MainNavigatorProtocol {
     
     func toView()
     func toPresentView()
+    func toErrorView()
     
 }
 
@@ -35,6 +36,11 @@ extension MainNavigator: MainNavigatorProtocol {
     func toPresentView() {
         let navigator = PresentNavigator(navigationController: self.navigationController)
         navigator.toPresent()
+    }
+    
+    func toErrorView() {
+        let navigator = NetworkErrorNavigator(navigationController: self.navigationController)
+        navigator.toNWErrorView()
     }
     
 }
