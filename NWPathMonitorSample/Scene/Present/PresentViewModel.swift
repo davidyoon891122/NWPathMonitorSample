@@ -18,9 +18,14 @@ struct PresentViewModel {
         let events: AnyPublisher<Void, Never>
     }
     
+    private let navigator: PresentNavigatorProtocol
     private let networkManager: NetworkManagerProtocol
     
-    init(networkManager: NetworkManagerProtocol = NetworkManager.shared) {
+    init(
+        navigator: PresentNavigatorProtocol,
+        networkManager: NetworkManagerProtocol = NetworkManager.shared
+    ) {
+        self.navigator = navigator
         self.networkManager = networkManager
     }
     
@@ -29,13 +34,22 @@ struct PresentViewModel {
 extension PresentViewModel {
     
     func bind(_ inputs: Inputs) -> Outputs {
+        let navigator = navigator
         
         let events = Publishers.MergeMany(
             inputs.viewDidLoad
                 .flatMap { _ -> AnyPublisher<Void, Never> in
                     networkManager.networkStatusPublisher
+                        .receive(on: DispatchQueue.main)
                         .handleEvents(receiveOutput: { status in
-                            print("status in PresentVM: \(status)")
+                            switch status {
+                            case .satisfied(let type):
+                                print("satisfied type: \(type)")
+                            case .unsatisfied:
+                                navigator.toErrorView()
+                            case .requiresConnection:
+                                navigator.toErrorView()
+                            }
                         })
                         .map { _ in }
                         .eraseToAnyPublisher()

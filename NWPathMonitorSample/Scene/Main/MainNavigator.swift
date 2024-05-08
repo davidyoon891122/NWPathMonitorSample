@@ -34,7 +34,7 @@ extension MainNavigator: MainNavigatorProtocol {
     }
     
     func toPresentView() {
-        let navigator = PresentNavigator(navigationController: self.navigationController)
+        let navigator = PresentNavigator(presentingController: self.navigationController)
         navigator.toPresent()
     }
     

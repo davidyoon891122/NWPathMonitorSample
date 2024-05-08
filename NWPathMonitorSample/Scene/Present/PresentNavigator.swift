@@ -10,15 +10,18 @@ import UIKit
 protocol PresentNavigatorProtocol {
     
     func toPresent()
+    func toErrorView()
     
 }
 
 struct PresentNavigator {
     
-    private weak var navigationController: UINavigationController?
+    private weak var presentingController: UIViewController?
+    private let navigationController: UINavigationController
     
-    init(navigationController: UINavigationController?) {
-        self.navigationController = navigationController
+    init(presentingController: UIViewController? = nil) {
+        self.presentingController = presentingController
+        self.navigationController = UINavigationController()
     }
     
 }
@@ -26,9 +29,18 @@ struct PresentNavigator {
 extension PresentNavigator: PresentNavigatorProtocol {
     
     func toPresent() {
-        let vm = PresentViewModel()
+        let vm = PresentViewModel(navigator: self)
         let vc = PresentViewController(viewModel: vm)
-        self.navigationController?.present(vc, animated: true)
+        
+        self.navigationController.pushViewController(vc, animated: false)
+    
+        self.presentingController?.present(self.navigationController, animated: true)
+        
+    }
+    
+    func toErrorView() {
+        let navigator = NetworkErrorNavigator(navigationController: self.navigationController)
+        navigator.toNWErrorView()
     }
     
 }
